@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<SerializableFolder xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Creating Digital Images</Name>
+  <SubFolders>
+    <SerializableFolder>
+      <Name>Resources</Name>
+      <SubFolders>
+        <SerializableFolder>
+          <Name>Primary Sources</Name>
+          <SubFolders />
+        </SerializableFolder>
+        <SerializableFolder>
+          <Name>Secondary Sources</Name>
+          <SubFolders />
+        </SerializableFolder>
+      </SubFolders>
+    </SerializableFolder>
+    <SerializableFolder>
+      <Name>Graphic Products</Name>
+      <SubFolders>
+        <SerializableFolder>
+          <Name>Process</Name>
+          <SubFolders />
+        </SerializableFolder>
+        <SerializableFolder>
+          <Name>Final Product</Name>
+          <SubFolders />
+        </SerializableFolder>
+      </SubFolders>
+    </SerializableFolder>
+    <SerializableFolder>
+      <Name>Evidence</Name>
+      <SubFolders />
+    </SerializableFolder>
+  </SubFolders>
+</SerializableFolder>
