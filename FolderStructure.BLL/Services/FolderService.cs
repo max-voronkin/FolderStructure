@@ -2,6 +2,7 @@
 using FolderStructure.DAL;
 using FolderStructure.DAL.Entities;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FolderStructure.BLL.Services
@@ -14,20 +15,30 @@ namespace FolderStructure.BLL.Services
             context = new StructureDBContext();
         }
 
-        public async Task<Folder> GetFolderById(int folderId)
+        public async Task<Folder> GetFolderById(int? folderId)
         {
-            Folder searchedFolder = await context.Folders.FirstOrDefaultAsync(f => f.Id == folderId);
-            if (searchedFolder is null)
-                throw new IncorrectPathException("Folder is not found", folderId.ToString());
+            Folder searchedFolder;
+            if (folderId == null)
+            {
+                searchedFolder = await GetParentNode();
+            }
+            else
+            {
+                searchedFolder = await context.Folders.FirstOrDefaultAsync(f => f.Id == folderId);
+                if (searchedFolder is null)
+                    throw new IncorrectPathException("Folder is not found", folderId.ToString());
+                searchedFolder.SubFolders = await context.Folders.Where(f => f.ParrentId == searchedFolder.Id).ToListAsync();
+            }
             return searchedFolder;
 
         }
 
-        public async Task<Folder> GetParentNode()
+        private async Task<Folder> GetParentNode()
         {
-            Folder parentFolder = await context.Folders.FirstOrDefaultAsync(f => f.ParrentId == null);
+            Folder parentFolder = await context.Folders.Where(f => f.ParrentId == null).FirstOrDefaultAsync();
             if (parentFolder is null)
                 throw new IncorrectPathException("Cant find parent folder");
+            parentFolder.SubFolders = await context.Folders.Where(f => f.ParrentId == parentFolder.Id).ToListAsync();
             return parentFolder;
         }
 

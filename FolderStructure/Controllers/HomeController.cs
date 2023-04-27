@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using FolderStructure.BLL.Services;
+using FolderStructure.DAL.Entities;
+using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace FolderStructure.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int? id)
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+            FolderService service = new FolderService();
+            Folder folder;
+            try
+            {
+                folder = await service.GetFolderById(id);
+                ViewBag.Title = folder.Name;
+                ViewBag.Node = folder;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+                return View("Error");
+            }
             return View();
         }
     }
