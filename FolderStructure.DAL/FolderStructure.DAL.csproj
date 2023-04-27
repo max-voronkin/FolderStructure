@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\SerializableFolder.cs" />
     <Compile Include="Entities\Folder.cs" />
     <Compile Include="Migrations\202304270916096_initial.cs" />
     <Compile Include="Migrations\202304270916096_initial.designer.cs">

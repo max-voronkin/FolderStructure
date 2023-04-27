@@ -14,7 +14,13 @@ namespace FolderStructure
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+            name: "Actions",
+            url: "{controller}/{action}/",
+            defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Folders",
                 url: "{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );

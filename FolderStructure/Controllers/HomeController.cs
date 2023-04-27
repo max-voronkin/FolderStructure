@@ -25,5 +25,13 @@ namespace FolderStructure.Controllers
             }
             return View();
         }
+
+        public FilePathResult DownloadStructure()
+        {
+            SerializationService serializationService = new SerializationService();
+            serializationService.SerializeStructure();
+            string filePath = Server.MapPath("~/Files/structure.xml");
+            return File(filePath, "application/octet-stream", "structure.xml");
+        }
     }
 }
