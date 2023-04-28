@@ -42,5 +42,16 @@ namespace FolderStructure.BLL.Services
             return parentFolder;
         }
 
+        public void SetNewStructure(Folder structure)
+        {
+            WipeStructureInDB();
+            context.Folders.Add(structure);
+            context.SaveChanges();
+        }
+
+        private void WipeStructureInDB()
+        {
+            context.Database.ExecuteSqlCommand("TRUNCATE TABLE Folders");
+        }
     }
 }
