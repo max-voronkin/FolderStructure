@@ -28,6 +28,17 @@ namespace FolderStructure.BLL.Services
             }
         }
 
+        public Folder DeserializeStructure()
+        {
+            SerializableFolder fromFile;
+            XmlSerializer xmlFromat = new XmlSerializer(typeof(SerializableFolder));
+            using (Stream fStream = new FileStream($"{baseDirecory}\\Files\\newStructure.xml", FileMode.Open))
+            {
+                fromFile = (SerializableFolder)xmlFromat.Deserialize(fStream);
+                return ConvertToEntity(fromFile);
+            }
+        }
+
         private SerializableFolder GetSerializibleStructure()
         {
             using (var context = new StructureDBContext())
@@ -42,5 +53,15 @@ namespace FolderStructure.BLL.Services
             };
             return dto;
         }
+        private Folder ConvertToEntity(SerializableFolder folder)
+        {
+            var dto = new Folder()
+            {
+                Name = folder.Name,
+                SubFolders = folder.SubFolders?.Select(s => ConvertToEntity(s)).ToList()
+            };
+            return dto;
+        }
+
     }
 }
